@@ -8,7 +8,6 @@ A framework to analyze textual name.
 **1. First import the package**
 ```
 from name_analyzer import name_analysis
-
 ```
 
 **2. Create two directories that you want to store Google and Bing images. (All images will be deleted after each call complete)**
@@ -16,11 +15,17 @@ from name_analyzer import name_analysis
 **3. Initialize object**
 ```
 obj = name_analysis(google_dir= 'your_google_image_storage', bing_dir= 'your_bing_image_storage')
-
 ```
 
 **4. Call method and get result. It will return a dictionary as {gender: confidence, race: confidence}** 
 ```
+query = 'textual_name'
 result = obj.analyze_name(query)
+```
 
+**Optional:**
+The default number of images to crawl is 2 for each search engine. You can specify a number by passing an integer in second argument.
+```
+query, num = 'textual_name', 4
+result = obj.analyze_name(query, num)
 ```
