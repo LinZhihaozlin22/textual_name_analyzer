@@ -2,7 +2,7 @@
 A framework to analyze textual name.
 
 ## Setup
-* In order to access the gender dectection service provided by AWS Rekognition, you will need to first setup AWS CLI. Please follow the steps provided by the link: https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html
+* In order to access the gender dectection service provided by AWS Rekognition, you will need to first setup AWS CLI. Please follow the first two steps provided by the link: https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html
 
 ## How to run
 **1. First import the package**
