@@ -3,8 +3,9 @@ import boto3
 import os
 from botocore.exceptions import ClientError
 import logging
-from google_crawler import Google_crawler
-from bing_crawler import Bing_crawler
+from name_analyzer.google_crawler import Google_crawler
+from name_analyzer.bing_crawler import Bing_crawler
+
 
 class Name_analysis(object):
     def __init__(self, google_dir, bing_dir, logger_level='W'):
@@ -18,7 +19,6 @@ class Name_analysis(object):
         else:
             logging.basicConfig(level=logging.DEBUG)
 
-
     def empty_photo_folder(self):
         self.logger.info('clean storage...')
         for file in os.scandir(self.google_dir):
@@ -26,10 +26,10 @@ class Name_analysis(object):
         for file in os.scandir(self.bing_dir):
             os.remove(file.path)
 
-
     def race_detect(self):
         self.logger.info('start race detection')
         white_confi, google_count, bing_count = 0.0, 0, 0
+
         def analyze_race(dir, is_google):
             nonlocal white_confi
             nonlocal google_count
@@ -49,19 +49,20 @@ class Name_analysis(object):
                         bing_count += 1
                         self.logger.debug('bing: ' + file)
                     self.logger.debug(obj)
+
         analyze_race(self.google_dir, True)
         analyze_race(self.bing_dir, False)
         total_image = google_count + bing_count
         if total_image == 0: return None
-        white_confi /= 100*total_image
+        white_confi /= 100 * total_image
         return ['White', white_confi, total_image, google_count, bing_count] if white_confi > 0.5 \
             else ['Non-white', 1 - white_confi, total_image, google_count, bing_count]
-
 
     def gender_detect(self):
         self.logger.info('start gender detection')
         male_confi, google_count, bing_count = 0.0, 0, 0
         client = boto3.client('rekognition')
+
         def analyze_gender(dir, is_google):
             nonlocal male_confi
             nonlocal google_count
@@ -95,15 +96,20 @@ class Name_analysis(object):
         return ['Male', male_confi, total_image, google_count, bing_count] if male_confi > 0.5 \
             else ['Female', 1 - male_confi, total_image, google_count, bing_count]
 
-
     def analyze_name(self, query, num=2, engine='both', search_face=False):
         Google_crawler(self.google_dir, self.logger).google_image_search(query, num)
         Bing_crawler(self.bing_dir, self.logger).bing_image_search(query, num)
         gender = self.gender_detect()
         race = self.race_detect()
-        if gender: self.logger.info('query: ' + query + '\ngender: ' + gender[0] + '\nconfidence: ' + str(gender[1]) + '\ngoogle img used: ' + str(gender[3]) + '\nbing img used: ' + str(gender[4]))
-        else: return None
-        if race: self.logger.info('query: ' + query + '\nrace: ' + race[0] + '\navg_confidence: ' + str(race[1]) + '\ngoogle img used: ' + str(race[3]) + '\nbing img used: ' + str(race[4]))
-        else: return None
+        if gender:
+            self.logger.info('query: ' + query + '\ngender: ' + gender[0] + '\nconfidence: ' + str(
+                gender[1]) + '\ngoogle img used: ' + str(gender[3]) + '\nbing img used: ' + str(gender[4]))
+        else:
+            return None
+        if race:
+            self.logger.info('query: ' + query + '\nrace: ' + race[0] + '\navg_confidence: ' + str(
+                race[1]) + '\ngoogle img used: ' + str(race[3]) + '\nbing img used: ' + str(race[4]))
+        else:
+            return None
         self.empty_photo_folder()
-        return {gender[0] : gender[1], race[0] : race[1]}
+        return {gender[0]: gender[1], race[0]: race[1]}
