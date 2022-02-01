@@ -4,7 +4,9 @@ A framework to analyze textual name.
 ## Setup
 * In order to access the gender dectection service provided by AWS Rekognition, you will need to first setup AWS CLI. Please follow the first two steps provided by the link: https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html
 
-## How to run
+## How to run 
+check test file as an example
+
 **1. First import the package**
 ```
 from name_analyzer.name_analysis import Name_analysis
