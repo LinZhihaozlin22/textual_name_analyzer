@@ -7,14 +7,14 @@ A framework to analyze textual name.
 ## How to run
 **1. First import the package**
 ```
-from name_analyzer import name_analysis
+from name_analyzer.name_analysis import Name_analysis
 ```
 
 **2. Create two directories that you want to store Google and Bing images. (All images will be deleted after each call complete)**
 
 **3. Initialize object**
 ```
-obj = name_analysis(google_dir= 'your_google_image_storage', bing_dir= 'your_bing_image_storage')
+obj = Name_analysis(google_dir= 'your_google_image_storage', bing_dir= 'your_bing_image_storage')
 ```
 
 **4. Call method and get result. It will return a dictionary as {gender: confidence, race: confidence}** 
