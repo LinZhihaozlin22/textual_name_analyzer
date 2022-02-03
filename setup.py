@@ -26,7 +26,7 @@ setup(name='textual_name_analyzer',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',
       ],
-      install_requires=['boto3','os','DeepFace','logging','botocore','BeautifulSoup','urllib','requests','json'],
+      install_requires=['boto3','DeepFace','botocore','BeautifulSoup4','requests'],
       keywords='name gender ethic',
       python_requires=">=3.5"
       )
