@@ -8,8 +8,14 @@ if __name__ == '__main__':
     # query = 'Darry Holliday University of Holy Cross'
     # query = 'Caron Anderson Emory University'
     # query = 'Darryl Holliday City Bureau'
-    query = 'Yi Fang SCU'
+    # query = 'Yi Fang SCU'
+    query = {
+        'first_name':'Yi',
+        'last_name': 'Fang',
+        'affiliation': 'SCU',
+        'title': 'Dr.'
+    }
 
-    obj = Name_analysis(google_dir= 'Your directory for Google images', bing_dir= 'Your directory for Bing images')
+    obj = Name_analysis(google_dir= '/Users/linzhihao/Desktop/img/google/', bing_dir= '/Users/linzhihao/Desktop/img/bing/')
     result = obj.analyze_name(query)
     print(result)
