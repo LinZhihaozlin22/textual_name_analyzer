@@ -11,7 +11,7 @@ if __name__ == '__main__':
     # query = 'Yi Fang SCU'
     query = {
         'first_name':'Yi',
-        'last_name': 'Fang',
+        'last_name': 'Fang', #required
         'affiliation': 'SCU',
         'title': 'Dr.'
     }
