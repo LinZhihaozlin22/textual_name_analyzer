@@ -96,7 +96,14 @@ class Name_analysis(object):
         return ['Male', male_confi, total_image, google_count, bing_count] if male_confi > 0.5 \
             else ['Female', 1 - male_confi, total_image, google_count, bing_count]
 
-    def analyze_name(self, query, num=2, engine='both', search_face=False):
+    def analyze_name(self, query_dict, num=2, engine='both', search_face=False):
+        if not query_dict['last_name']:
+            self.logger.warning('Last name is required')
+            return None
+        filter, query = ['first_name', 'last_name', 'affiliation'], ''
+        for f in filter:
+            if query_dict[f]:
+                query += query_dict[f] + ' '
         Google_crawler(self.google_dir, self.logger).google_image_search(query, num)
         Bing_crawler(self.bing_dir, self.logger).bing_image_search(query, num)
         gender = self.gender_detect()
@@ -112,4 +119,4 @@ class Name_analysis(object):
         else:
             return None
         self.empty_photo_folder()
-        return {gender[0]: gender[1], race[0]: race[1]}
+        return {'gender': (gender[0], gender[1]), 'race': (race[0], race[1])}
