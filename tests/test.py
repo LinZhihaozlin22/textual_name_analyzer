@@ -16,6 +16,6 @@ if __name__ == '__main__':
         'title': 'Dr.'
     }
 
-    obj = Name_analysis(google_dir= '/Users/linzhihao/Desktop/img/google/', bing_dir= '/Users/linzhihao/Desktop/img/bing/')
+    obj = Name_analysis(google_dir= 'google img directory', bing_dir= 'bing img directory')
     result = obj.analyze_name(query)
     print(result)
