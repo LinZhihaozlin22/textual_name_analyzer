@@ -2,7 +2,7 @@
 A framework to analyze textual name.
 
 ## Setup
-* In order to access the gender dectection service provided by AWS Rekognition, you will need to first setup AWS CLI. Please follow the first two steps provided by the link: https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html
+* In order to access the gender dectection service provided by AWS Rekognition, you will need to first setup AWS CLI. Please follow the first two steps provided by the link (only need the part about setting up AWS CLI): https://docs.aws.amazon.com/rekognition/latest/dg/setting-up.html
 
 ## How to run 
 check test file as an example
@@ -21,8 +21,18 @@ obj = Name_analysis(google_dir= 'your_google_image_storage', bing_dir= 'your_bin
 
 **4. Call method and get result. It will return a dictionary as {gender: confidence, race: confidence}** 
 ```
-query = 'textual_name'
+query = {
+    'first_name':'first name',
+    'last_name': 'last name', #required
+    'affiliation': 'affiliation',
+    'title': 'title'
+}
 result = obj.analyze_name(query)
+```
+
+**5. Result format**
+```
+{gender: (label, score), race: (label, score)}
 ```
 
 **Optional:**
